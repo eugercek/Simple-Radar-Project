@@ -10,11 +10,13 @@ class Draw {
     for (float R : Constant.RadiusList) {
       circle(0, 0, R);
     }
+
     popMatrix();
   }
 
   void RedLine() {
     pushMatrix();
+
     float lineVar = (height * 44.4 / 100);
 
     translate(width / 2, height / 2);
@@ -23,19 +25,21 @@ class Draw {
     stroke(Constant.RedLineColor); // Red
 
     pixelDistance =
-        cmDistance * 22.5; // Converting real distance in centimeters to pixels.
+      cmDistance * 22.5; // Converting real distance in centimeters to pixels.
     // Limiting the distance to 40 cm
     if (cmDistance < 40) {
-      line(pixelDistance * cos(radians(degreeAngle)),
-           -pixelDistance * sin(radians(degreeAngle)),
-           lineVar * cos(radians(degreeAngle)),
-           -lineVar * sin(radians(degreeAngle)));
+      line(pixelDistance * cos(radians(degreeAngle)), 
+        -pixelDistance * sin(radians(degreeAngle)), 
+        lineVar * cos(radians(degreeAngle)), 
+        -lineVar * sin(radians(degreeAngle)));
     }
+
     popMatrix();
   }
 
   void InfoTtext() {
     pushMatrix();
+
     noObject = cmDistance > 40 ? "Out of Range" : "In Range";
     fill(Constant.TextColor);
 
@@ -45,8 +49,8 @@ class Draw {
 
     translate(width / 2, height / 2);
     text("Object: " + noObject, -width / 2 * 95 / 100, -height / 2 * 90 / 100);
-    text("Angle: " + nfs(rotateAngle, 3, 2) + " °", -width / 2 * 95 / 100,
-         -height / 2 * 80 / 100);
+    text("Angle: " + nfs(rotateAngle, 3, 2) + " °", -width / 2 * 95 / 100, 
+      -height / 2 * 80 / 100);
     text("Distance:", -width / 2 * 95 / 100, -height / 2 * 70 / 100);
 
     if (cmDistance < 40) {
@@ -58,6 +62,7 @@ class Draw {
 
   void Lines() {
     pushMatrix();
+
     fill(Constant.LineColor);
     float lineVar = Constant.LineLong;
     translate(width / 2, height / 2);
@@ -79,17 +84,17 @@ class Draw {
     textAlign(CENTER);
 
     for (int i = 0; i < Constant.RadiusList.length; i++) {
-      text((i + 1) * Constant.DistanceK, Constant.RadiusList[i] / 2,
-           height * 3 / 100);
+      text((i + 1) * Constant.DistanceK, Constant.RadiusList[i] / 2, 
+        height * 3 / 100);
     }
 
     popMatrix();
   }
 
   void DegreeNumbers() {
-    float lineVar = Constant.LineLong;
-
     pushMatrix();
+
+    float lineVar = Constant.LineLong;
 
     translate(width / 2, height / 2);
 
@@ -104,8 +109,8 @@ class Draw {
     for (int i = 0; i < 360; i += 30) {
       pushMatrix();
 
-      translate(lineVar * cos(radians(i)) * trans_constant_x,
-                -lineVar * sin(radians(i)) * trans_constant_y);
+      translate(lineVar * cos(radians(i)) * trans_constant_x, 
+        -lineVar * sin(radians(i)) * trans_constant_y);
       // rotate(180 - degrees);
       text(i + "°", 0, 0);
       popMatrix();
@@ -116,6 +121,7 @@ class Draw {
 
   void Rotate() {
     pushMatrix();
+
     float lineVar = Constant.LineLong;
 
     stroke(Constant.RotateLineColor);
@@ -123,13 +129,12 @@ class Draw {
     translate(width / 2, height / 2);
     strokeWeight(2);
     for (int i = 0; i < Constant.FollowerNumber; i++) {
-      line(0, 0, lineVar * cos(radians(rotateAngle - i)),
-           -lineVar * sin(radians(rotateAngle - i)));
+      line(0, 0, lineVar * cos(radians(rotateAngle - i)), -lineVar * sin(radians(rotateAngle - i)));
     }
 
     strokeWeight(6);
-    line(0, 0, lineVar * cos(radians(rotateAngle)),
-         -lineVar * sin(radians(rotateAngle)));
+    line(0, 0, lineVar * cos(radians(rotateAngle)), 
+      -lineVar * sin(radians(rotateAngle)));
 
     rotateAngle = (rotateAngle + 0.80) % 360;
 
