@@ -33,6 +33,12 @@ void setup()
     smaller * 0.815
   };
 
+  Constant.CircleColor     = color(98, 245, 31);
+  Constant.LineColor       = color(98, 245, 31);
+  Constant.TextColor       = color(255, 255, 255);
+  Constant.RedLineColor    = color(255, 10, 10);
+  Constant.RotateLineColor = color(30, 250, 60);
+
   Constant.LineLong       = Constant.RadiusList[3] * 0.533 ;
 
   Constant.DistanceK      = 10;
