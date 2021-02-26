@@ -1,5 +1,5 @@
 class Draw {
-  void Circle() {
+  void circles() {
     pushMatrix();
 
     translate(width / 2, height / 2);
@@ -37,11 +37,11 @@ class Draw {
     popMatrix();
   }
 
-  void InfoTtext() {
+  void infoText() {
     pushMatrix();
 
     noObject = cmDistance > 40 ? "Out of Range" : "In Range";
-    fill(Constant.TextColor);
+    fill(Constant.InfoTextColor);
 
     textAlign(LEFT);
     textSize(bigger * 2.08 / 100);
@@ -60,11 +60,10 @@ class Draw {
     popMatrix();
   }
 
-  void Lines() {
+  void lines() {
     pushMatrix();
-
     fill(Constant.LineColor);
-    float lineVar = Constant.LineLong;
+    float lineVar = Constant.LineLength;
     translate(width / 2, height / 2);
 
     for (int i = 30; i <= 360; i += 30) {
@@ -74,7 +73,8 @@ class Draw {
     popMatrix();
   }
 
-  void DistanceNumbers() {
+
+  void distanceNumbers() {
     pushMatrix();
 
     translate(width / 2, height / 2);
@@ -103,8 +103,8 @@ class Draw {
     textLeading(0);
     fill(Constant.TextColor);
 
-    float trans_constant_x = 1.1;
-    float trans_constant_y = 1.1;
+    float transConstantX = 1.1;
+    float transConstantY = 1.1;
 
     for (int i = 0; i < 360; i += 30) {
       pushMatrix();
@@ -119,10 +119,10 @@ class Draw {
     popMatrix();
   }
 
-  void Rotate() {
+  void drawRotatingLine() {
     pushMatrix();
 
-    float lineVar = Constant.LineLong;
+    float lineVar = Constant.LineLength;
 
     stroke(Constant.RotateLineColor);
 

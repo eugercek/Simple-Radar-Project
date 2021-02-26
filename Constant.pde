@@ -4,11 +4,13 @@ class Constant {
 
   public color CircleColor;
   public color LineColor;
+  public color InfoTextColor;
   public color TextColor;
   public color RotateLineColor;
   public color RedLineColor;
 
-  public float LineLong;
+  public float LineLength;
+  public float RotateAngle;
 
   public int   smaller;
   public int   FollowerNumber;
