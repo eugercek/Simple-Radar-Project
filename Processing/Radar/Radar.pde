@@ -49,7 +49,7 @@ void setup()
   Constant.FollowerNumber  = 5;
 }
 
-void serialEvent (Serial myPort)
+void serialEvent(Serial myPort)
 { 
   cmDistance = myPort.read();
 }
@@ -61,7 +61,8 @@ void draw()
   rect(0, 0, width, height);
   drawCircles();
   drawLines();
-  drawRedLine();
+  if(Serial.available() > 0)// If any bit has come
+    drawRedLine(); 
   drawInfoText();
   drawDegreeNumbers();
   drawDistanceNumbers();
