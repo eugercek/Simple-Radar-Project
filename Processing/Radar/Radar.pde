@@ -49,9 +49,12 @@ void setup()
   Constant.FollowerNumber  = 5;
 }
 
+void serialEvent (Serial myPort)
+{ 
+  cmDistance = myPort.read();
+}
 void draw() 
 {
-  cmDistance = myPort.read();
   int start = millis();
   fill(0);
   noStroke();

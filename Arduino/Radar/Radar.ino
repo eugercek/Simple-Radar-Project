@@ -49,7 +49,7 @@ void setup()
   pinMode(echoPin, INPUT);
      
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.begin(9600);
+  Serial.begin(38400);
 }
 
 void loop()
