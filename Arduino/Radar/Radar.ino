@@ -13,7 +13,6 @@
 
 #define DEBUG
  
-
 #define soundConstant 0.034
 
 Servo motor;
@@ -52,6 +51,8 @@ void setup()
   
   pinMode(trigPin, OUTPUT); 
   pinMode(echoPin, INPUT);   
+  pinMode(LED_BUILTIN, OUTPUT);
+  Serial.begin(9600);
 }
 
 void loop()
