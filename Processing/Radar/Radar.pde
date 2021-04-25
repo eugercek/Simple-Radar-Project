@@ -20,7 +20,7 @@ void setup()
   smooth(16);
   
   String portName = Serial.list()[0];
-  myPort = new Serial(this, "COM3", 9600);
+  myPort = new Serial(this, "COM4", 9600); // Maybe COM4 in your setup
 
   soundFile = new SoundFile(this, "radar_sound.mp3");
   soundFile.loop();
@@ -61,7 +61,7 @@ void draw()
   rect(0, 0, width, height);
   drawCircles();
   drawLines();
-  if(Serial.available() > 0)// If any bit has come
+  if(myPort.available() > 0)// If any bit has come
     drawRedDot(); 
   drawInfoText();
   drawDegreeNumbers();
