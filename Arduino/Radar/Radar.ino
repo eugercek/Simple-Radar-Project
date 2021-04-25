@@ -17,7 +17,7 @@
 
 Servo motor;
 int distanceCm ;
-bool standByVal = true;
+int standByVal = '1'; //Standby '1' true anlamında Standbya '0' yollayınca false olacak ve break çalışacak '0' da telefondan yollanacak.
 
 void setup()
 {
@@ -54,6 +54,10 @@ void setup()
 
 void loop()
 {
+  if(Serial.available() > 0)
+  {
+    standByVal = Serial.read();
+  }
   for (int i = 0; i <= ROTATE_ANGLE; i++)
   {
     motor.write(i);
@@ -135,7 +139,7 @@ void standBy()
   analogWrite(bluePin, 255);
   while(1)
   {
-    if(standByVal == false)
+    if(standByVal == '0')
       break;
     
     delay(300);
