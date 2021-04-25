@@ -13,7 +13,6 @@
 
 #define DEBUG
  
-
 #define soundConstant 0.034
 
 Servo motor;
