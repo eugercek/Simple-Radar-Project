@@ -29,7 +29,7 @@ void setup()
   #ifdef DEBUG
     motor.attach(motorPin);
     analogWrite(bluePin, 255);
-  delay(1000);
+    delay(1000);
     analogWrite(bluePin, 0);
   #endif
 

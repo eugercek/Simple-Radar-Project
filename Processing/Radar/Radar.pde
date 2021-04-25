@@ -61,6 +61,7 @@ void draw()
   rect(0, 0, width, height);
   drawCircles();
   drawLines();
+  drawRedLine();
   drawInfoText();
   drawDegreeNumbers();
   drawDistanceNumbers();
