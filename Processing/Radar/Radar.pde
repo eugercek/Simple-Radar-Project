@@ -45,7 +45,7 @@ void setup()
 
   Constant.LineLength      = Constant.RadiusList[3] * 0.533 ;
 
-  Constant.DistanceK       = 10;
+  Constant.DistanceK       = 80;
   Constant.FollowerNumber  = 5;
 }
 
@@ -62,7 +62,7 @@ void draw()
   drawCircles();
   drawLines();
   if(Serial.available() > 0)// If any bit has come
-    drawRedLine(); 
+    drawRedDot(); 
   drawInfoText();
   drawDegreeNumbers();
   drawDistanceNumbers();
@@ -87,10 +87,10 @@ void drawCircles()
   popMatrix();
 }
 
-void drawRedLine() 
+void drawRedDot() 
 {
   pushMatrix();
-  float lineVar = (height*44.4/100);
+  float dotVar = (height*44.4/100);
 
   translate(width/2, height/2); 
   strokeWeight(1);
@@ -101,7 +101,9 @@ void drawRedLine()
   //Limiting the distance to 40 cm
   if (cmDistance < 40)
   { 
-    line(pixelDistance*cos(radians(degreeAngle)), -pixelDistance*sin(radians(degreeAngle)), lineVar*cos(radians(degreeAngle)), -lineVar*sin(radians(degreeAngle)));
+    float circleX = (pixelDistance*cos(radians(degreeAngle)) + dotVar*cos(radians(degreeAngle))) / 2;
+    float circleY = (-pixelDistance*sin(radians(degreeAngle)) - dotVar*sin(radians(degreeAngle))) / 2;
+    circle(circleX, circleY, 30);// 30 is a random value
   } 
   popMatrix();
 } 
