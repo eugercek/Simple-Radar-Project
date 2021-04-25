@@ -64,6 +64,7 @@ void loop()
       builtinLed();
       standBy();
     #endif
+    Serial.write(distanceCm);
   }
 
   for (int i = ROTATE_ANGLE; i >= 0; i--)
@@ -76,6 +77,7 @@ void loop()
       builtinLed();
       standBy();
     #endif
+    Serial.write(distanceCm);
   }
 }
 
