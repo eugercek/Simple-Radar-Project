@@ -60,9 +60,7 @@ void draw()
   noStroke();
   rect(0, 0, width, height);
   drawCircles();
-  drawLines();
-  if(myPort.available() > 0)// If any bit has come
-    drawRedDot(); 
+  drawLines(); 
   drawInfoText();
   drawDegreeNumbers();
   drawDistanceNumbers();
@@ -87,7 +85,7 @@ void drawCircles()
   popMatrix();
 }
 
-void drawRedDot() 
+void drawRedDot(float currentPos) 
 {
   pushMatrix();
   float dotVar = (height*44.4/100);
@@ -102,8 +100,8 @@ void drawRedDot()
   //Limiting the distance to 40 cm
   if (cmDistance < 40)
   { 
-    float circleX = (pixelDistance*cos(radians(degreeAngle)) + dotVar*cos(radians(degreeAngle))) / 2;
-    float circleY = (-pixelDistance*sin(radians(degreeAngle)) - dotVar*sin(radians(degreeAngle))) / 2;
+    float circleX = (pixelDistance*cos(radians(currentPos)) + dotVar*cos(radians(currentPos))) / 2;
+    float circleY = (-pixelDistance*sin(radians(currentPos)) - dotVar*sin(radians(currentPos))) / 2;
     circle(circleX, circleY, 30);// 30 is a random value
   } 
   popMatrix();
@@ -211,9 +209,10 @@ void drawRotate()
   {
     followerControl = i;
     strokeWeight(2);
+    if(cmDistance < 320)
+      drawRedDot(rotateAngle);
     line(0, 0, lineVar * cos(radians(rotateAngle - followerControl/5)), -lineVar * sin(radians(rotateAngle - followerControl/5)));
     stroke(Constant.LineColor, alpha - i);
-    
   }
   rotateAngle = (rotateAngle + 0.8) % 360;
   popMatrix();
