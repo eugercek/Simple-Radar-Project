@@ -37,7 +37,13 @@ void setup()
   #ifdef DEBUG
   	Serial.begin(9600);
   #endif
-  
+
+  #ifdef DEBUG
+    #define ROTATE_ANGLE 180
+  #else
+    #define ROTATE_ANGLE 360
+  #endif
+
   pinMode(redPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
   pinMode(bluePin, OUTPUT);
@@ -50,7 +56,7 @@ void setup()
 
 void loop()
 {
-  for (int i = 0; i <= 360; i++)
+  for (int i = 0; i <= ROTATE_ANGLE; i++)
   {
     motor.write(i);
     distCalc();
@@ -61,7 +67,7 @@ void loop()
     #endif
   }
 
-  for (int i = 360; i >= 0; i--)
+  for (int i = ROTATE_ANGLE; i >= 0; i--)
   {
     motor.write(i);
     distCalc();
