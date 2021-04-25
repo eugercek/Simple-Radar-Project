@@ -68,7 +68,8 @@ void loop()
       builtinLed();
       standBy();
     #endif
-    Serial.write(distanceCm);
+    if (objectInRange())
+      Serial.write(distanceCm);
   }
 
   for (int i = ROTATE_ANGLE; i >= 0; i--)
@@ -81,7 +82,8 @@ void loop()
       builtinLed();
       standBy();
     #endif
-    Serial.write(distanceCm);
+    if (objectInRange())
+      Serial.write(distanceCm);
   }
 }
 
@@ -112,11 +114,11 @@ int distCalc()
 
 void ledRedOrGreen(void)
 {
-  // TODO Find Real Life Value for 320
-  if (distanceCm > 320) // Out of Range
-    rgbColor(0, 255, 0);
-  else
+ 
+  if (objectInRange())
     rgbColor(255, 0, 0);
+  else
+    rgbColor(0, 255, 0);
   delay(100);
 }
 
@@ -129,7 +131,7 @@ void rgbColor(int red, int green, int blue)
 
 void buzzOrNot(int distanceCm)
 {
-   if (distanceCm < 320)
+   if (objectInRange())
     tone(buzzerPin, 220, 100); // TOOD find good tone
 }
 
@@ -149,8 +151,14 @@ void standBy()
 
 void builtinLed()
 {
-  if (distanceCm > 320) // Out of Range 
-    digitalWrite(LED_BUILTIN, LOW);
-  else
+  if (objectInRange()) // Out of Range
     digitalWrite(LED_BUILTIN, HIGH);
+  else
+    digitalWrite(LED_BUILTIN, LOW);
+    
+}
+
+inline boolean objectInRange()
+{
+  return distanceCm < 320; // TODO Find Real Life Value for 320
 }
