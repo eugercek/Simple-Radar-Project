@@ -96,6 +96,7 @@ void drawRedDot()
   strokeWeight(1);
 
   stroke(Constant.RedLineColor); //Red
+  fill(255,0,0);
 
   pixelDistance = cmDistance*22.5; //Converting real distance in centimeters to pixels.
   //Limiting the distance to 40 cm
