@@ -1,4 +1,7 @@
 import processing.sound.*;
+import processing.serial.*;
+
+Serial myPort;
 
 String noObject;
 float pixelDistance;
@@ -15,6 +18,9 @@ void setup()
 {
   fullScreen();
   smooth(16);
+  
+  String portName = Serial.list()[0];
+  myPort = new Serial(this, "COM3", 9600);
 
   soundFile = new SoundFile(this, "radar_sound.mp3");
   soundFile.loop();
@@ -23,7 +29,7 @@ void setup()
   bigger =  displayWidth > displayHeight ? width : height;
 
   Constant.RadiusList = new float[]
-    {
+  {
     smaller * 0.26, 
     smaller * 0.44, 
     smaller * 0.63, 
@@ -39,12 +45,13 @@ void setup()
 
   Constant.LineLength      = Constant.RadiusList[3] * 0.533 ;
 
-  Constant.DistanceK      = 10;
-  Constant.FollowerNumber = 5;
+  Constant.DistanceK       = 10;
+  Constant.FollowerNumber  = 5;
 }
 
 void draw() 
 {
+  cmDistance = myPort.read();
   int start = millis();
   fill(0);
   noStroke();
