@@ -1,13 +1,13 @@
 #include <Servo.h>
 
-#define echoPin   5
-#define trigPin   13
+#define redPin    13
+#define greenPin  12
+#define bluePin   11
 
-#define redPin    11
-#define bluePin   9
-#define greenPin  8
+#define buzzerPin 10
 
-#define buzzerPin 7
+#define trigPin   5
+#define echoPin   4
 
 #define motorPin 3
 
