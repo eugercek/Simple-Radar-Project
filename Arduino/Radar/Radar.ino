@@ -27,14 +27,10 @@ void setup()
  * 1 second stand by on start
  */
   #ifdef DEBUG
-  	motor.attach(motorPin);
-  	analogWrite(bluePin, 255);
- 	delay(1000);
-  	analogWrite(bluePin, 0);
-  #endif
-          
-  #ifdef DEBUG
-  	Serial.begin(9600);
+    motor.attach(motorPin);
+    analogWrite(bluePin, 255);
+  delay(1000);
+    analogWrite(bluePin, 0);
   #endif
 
   #ifdef DEBUG
@@ -50,7 +46,8 @@ void setup()
   pinMode(buzzerPin, OUTPUT);
   
   pinMode(trigPin, OUTPUT); 
-  pinMode(echoPin, INPUT);   
+  pinMode(echoPin, INPUT);
+     
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(9600);
 }
@@ -64,7 +61,8 @@ void loop()
     ledRedOrGreen();
     buzzOrNot(distanceCm);
     #ifndef DEBUG
-    	standBy();
+      builtinLed();
+      standBy();
     #endif
   }
 
@@ -75,7 +73,8 @@ void loop()
     ledRedOrGreen();
     buzzOrNot(distanceCm);
     #ifndef DEBUG
-    	standBy();
+      builtinLed();
+      standBy();
     #endif
   }
 }
@@ -96,8 +95,8 @@ int distCalc()
   distanceCm = timeVal * soundConstant / 2;
   
   #ifdef DEBUG
-  	Serial.print("Distance: ");
-  	Serial.println(distanceCm);
+    Serial.print("Distance: ");
+    Serial.println(distanceCm);
   #endif
   
   return distanceCm;
@@ -125,7 +124,7 @@ void rgbColor(int red, int green, int blue)
 void buzzOrNot(int distanceCm)
 {
    if (distanceCm < 320)
-   	tone(7, 220, 100); // TOOD find good tone
+    tone(buzzerPin, 220, 100); // TOOD find good tone
 }
 
 
@@ -138,6 +137,15 @@ void standBy()
       break;
     
     delay(300);
-  } 	
+  }   
   analogWrite(bluePin, 0);
+}
+
+void builtinLed()
+{
+  if (distanceCm > 320) // Out of Range 
+    digitalWrite(LED_BUILTIN, LOW);
+  else
+    digitalWrite(LED_BUILTIN, HIGH);
+  delay(300);
 }
