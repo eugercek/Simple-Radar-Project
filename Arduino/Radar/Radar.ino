@@ -107,10 +107,10 @@ int distCalc()
 void ledRedOrGreen(void)
 {
   // TODO Find Real Life Value for 320
-  if (distanceCm > 320) // Out of Range 
-    rgbColor(255, 0, 0);
-  else
+  if (distanceCm > 320) // Out of Range
     rgbColor(0, 255, 0);
+  else
+    rgbColor(255, 0, 0);
   delay(100);
 }
 
@@ -147,5 +147,4 @@ void builtinLed()
     digitalWrite(LED_BUILTIN, LOW);
   else
     digitalWrite(LED_BUILTIN, HIGH);
-  delay(300);
 }
