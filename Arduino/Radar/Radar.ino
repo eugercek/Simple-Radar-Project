@@ -157,7 +157,7 @@ void mainEvent()
  *                       | \n              |
  *                       |-----------------|
  *                
- * Using Serial.print because it's eaiser to handle with ascii.
+ * Using Serial.print because it's easier to handle with ascii.
  * When implementing drawRedDot this could be harder.
  * Also printing is better for logging, and debugging from monitor.
  */
