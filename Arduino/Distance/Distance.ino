@@ -62,15 +62,6 @@ void mainEvent()
 {
   motor.write(rotateAngle);
   distCalc();
-  ledRedOrGreen();
-  builtinLed();
-  #ifndef DEBUG
-    buzzOrNot(cmDistance);
-  #endif
-  #ifndef NO_PHONE
-    standBy();
-  #endif
-  // if (objectInRange()) // TODO Only send when object detected
   send_packet();
 }
 void send_packet()// TODO Maybe encapsulate with a struct
