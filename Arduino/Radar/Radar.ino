@@ -135,12 +135,12 @@ inline boolean objectInRange()
 
 void mainEvent()
 {
-  motor.write(1);
+  motor.write(rotateAngle);
   distCalc();
   ledRedOrGreen();
   builtinLed();
+  buzzOrNot(cmDistance);
   #ifndef DEBUG
-    buzzOrNot(cmDistance);
   #endif
   #ifndef NO_PHONE
     standBy();
