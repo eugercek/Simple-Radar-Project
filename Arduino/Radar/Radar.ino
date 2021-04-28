@@ -11,13 +11,14 @@
 
 #define motorPin 3
 
-#define DEBUG
-#define NO_PHONE
+#define DEBUG // Reduced rotation angle and mimics stand by
+#define NO_PHONE // For testing without reading any serial input
  
 #define soundConstant 0.034
 
 Servo motor;
-int cmDistance ;
+int cmDistance;
+int rotateAngle = 0;
 char standByVal = '1'; // MIT App Inventor will send '0' for pause radar
 
 void setup()
@@ -55,13 +56,15 @@ void setup()
 
 void loop()
 {
-  if(Serial.available() > 0)
-    standByVal = Serial.read();
-
-  for (int i = 0; i <= ROTATE_ANGLE; i++)
+  #ifndef NO_PHONE
+    if(Serial.available() > 0) // Todo Change Serial? For both read and write
+      standByVal = Serial.read();
+  #endif
+  
+  for (rotateAngle = 0; rotateAngle <= ROTATE_ANGLE; rotateAngle++)
     mainEvent();
 
-  for (int i = ROTATE_ANGLE; i >= 0; i--)
+  for (rotateAngle = ROTATE_ANGLE; rotateAngle >= 0; rotateAngle--)
     mainEvent();
 }
 
@@ -142,6 +145,26 @@ void mainEvent()
   #ifndef NO_PHONE
     standBy();
   #endif
-  if (objectInRange())
-    Serial.write(cmDistance);
+  // if (objectInRange()) // TODO Only send when object detected
+  send_packet();
+}
+
+/*                          Packet Format
+ *                       |-----------------|
+ *                       | Angle           |
+ *                       | ,               |
+ *                       | Object Distance |
+ *                       | \n              |
+ *                       |-----------------|
+ *                
+ * Using Serial.print because it's eaiser to handle with ascii.
+ * When implementing drawRedDot this could be harder.
+ * Also printing is better for logging, and debugging from monitor.
+ */
+
+void send_packet()// TODO Maybe encapsulate with a struct
+{
+  Serial.print(rotateAngle);
+  Serial.print(',');
+  Serial.println(cmDistance);// println adds \n for indicating one packet has send
 }
