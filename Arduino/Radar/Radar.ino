@@ -135,7 +135,7 @@ inline boolean objectInRange()
 
 void mainEvent()
 {
-  motor.write(i);
+  motor.write(rotateAngle);
   distCalc();
   ledRedOrGreen();
   builtinLed();
