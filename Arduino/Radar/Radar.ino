@@ -11,36 +11,34 @@
 
 #define motorPin 3
 
-#define DEBUG // Reduced rotation angle and mimics stand by
-#define NO_PHONE // For testing without reading any serial input
+#define DEBUG
  
 #define soundConstant 0.034
 
 Servo motor;
-int cmDistance;
-int rotateAngle = 0;
-char standByVal = '1'; // MIT App Inventor will send '0' to pause radar
+int distanceCm ;
+int standByVal = '1'; //Standby '1' true anlam?nda Standbya '0' yollay?nca false olacak ve break �al??acak '0' da telefondan yollanacak.
 
 void setup()
 {
+  
 /*
  * If DEBUG Below macro will simulate
  * 1 second stand by on start
  */
   #ifdef DEBUG
+    motor.attach(motorPin);
     analogWrite(bluePin, 255);
     delay(1000);
     analogWrite(bluePin, 0);
   #endif
 
-  // For real world problems
   #ifdef DEBUG
     #define ROTATE_ANGLE 180
   #else
     #define ROTATE_ANGLE 360
   #endif
 
-  motor.attach(motorPin);
   pinMode(redPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
   pinMode(bluePin, OUTPUT);
@@ -56,20 +54,43 @@ void setup()
 
 void loop()
 {
-  #ifndef NO_PHONE
-    if(Serial.available() > 0) // Todo Change Serial? For both read and write
-      standByVal = Serial.read();
-  #endif
-  
-  for (rotateAngle = 0; rotateAngle <= ROTATE_ANGLE; rotateAngle++)
-    mainEvent();
+  if(Serial.available() > 0)
+  {
+    standByVal = Serial.read();
+  }
+  for (int i = 0; i <= ROTATE_ANGLE; i++)
+  {
+    motor.write(i);
+    distCalc();
+    ledRedOrGreen();
+    buzzOrNot(distanceCm);
+    #ifndef DEBUG
+      builtinLed();
+      standBy();
+    #endif
+    if (objectInRange())
+      Serial.write(distanceCm);
+  }
 
-  for (rotateAngle = ROTATE_ANGLE; rotateAngle >= 0; rotateAngle--)
-    mainEvent();
+  for (int i = ROTATE_ANGLE; i >= 0; i--)
+  {
+    motor.write(i);
+    distCalc();
+    ledRedOrGreen();
+    buzzOrNot(distanceCm);
+    #ifndef DEBUG
+      builtinLed();
+      standBy();
+    #endif
+    if (objectInRange())
+      Serial.write(distanceCm);
+  }
 }
+
 
 int distCalc()
 {
+
   long timeVal;
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -79,13 +100,21 @@ int distCalc()
 
   timeVal = pulseIn(echoPin, HIGH);
   
-  cmDistance = timeVal * soundConstant / 2;
+  distanceCm = timeVal * soundConstant / 2;
   
-  return cmDistance;
+  #ifdef DEBUG
+    Serial.print("Distance: ");
+    Serial.println(distanceCm);
+  #endif
+  
+  return distanceCm;
+
+  
 }
 
 void ledRedOrGreen(void)
 {
+ 
   if (objectInRange())
     rgbColor(255, 0, 0);
   else
@@ -100,11 +129,12 @@ void rgbColor(int red, int green, int blue)
   analogWrite(bluePin, blue);
 }
 
-void buzzOrNot(int cmDistance)
+void buzzOrNot(int distanceCm)
 {
    if (objectInRange())
     tone(buzzerPin, 220, 100); // TOOD find good tone
 }
+
 
 void standBy()
 {
@@ -130,41 +160,5 @@ void builtinLed()
 
 inline boolean objectInRange()
 {
-  return cmDistance < 320; // TODO Find Real Life Value for 320
-}
-
-void mainEvent()
-{
-  motor.write(i);
-  distCalc();
-  ledRedOrGreen();
-  builtinLed();
-  #ifndef DEBUG
-    buzzOrNot(cmDistance);
-  #endif
-  #ifndef NO_PHONE
-    standBy();
-  #endif
-  // if (objectInRange()) // TODO Only send when object detected
-  send_packet();
-}
-
-/*                          Packet Format
- *                       |-----------------|
- *                       | Angle           |
- *                       | ,               |
- *                       | Object Distance |
- *                       | \n              |
- *                       |-----------------|
- *                
- * Using Serial.print because it's easier to handle with ascii.
- * When implementing drawRedDot this could be harder.
- * Also printing is better for logging, and debugging from monitor.
- */
-
-void send_packet()// TODO Maybe encapsulate with a struct
-{
-  Serial.print(rotateAngle);
-  Serial.print(',');
-  Serial.println(cmDistance);// println adds \n for indicating one packet has been sent
+  return distanceCm < 320; // TODO Find Real Life Value for 320
 }
