@@ -136,11 +136,12 @@ inline boolean objectInRange()
 void mainEvent()
 {
   motor.write(rotateAngle);
+  delay(100); // TODO Find more consisten value 
   distCalc();
   ledRedOrGreen();
   builtinLed();
-  buzzOrNot(cmDistance);
   #ifndef DEBUG
+    buzzOrNot(cmDistance);
   #endif
   #ifndef NO_PHONE
     standBy();
