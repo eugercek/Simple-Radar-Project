@@ -56,6 +56,7 @@ void setup()
 void serialEvent(Serial myPort)
 { 
   String packet = myPort.readStringUntil('\n');
+  println(packet);
   packet = packet.substring(0, packet.length() - 1); // Removes \n form end
   
   int  delimiterIndex = packet.indexOf(',');
@@ -77,7 +78,6 @@ void draw()
   drawer.drawDistanceNumbers();
   drawer.drawRotate();
   
-  // Debug
-  println(rotateAngle + " " + cmDistance);
+ 
   
 }
