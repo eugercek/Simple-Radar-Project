@@ -122,11 +122,7 @@ void drawInfoText()
   text("Angle: " + nfs(rotateAngle, 3, 2) +" °", -width/2*95/100, -height/2*80/100);
   text("Distance:", -width/2*95/100, -height/2*70/100);
 
-  if (cmDistance<40) 
-  {
-    text(cmDistance +" cm", -width/2*75/100, -height/2*70/100);
-  }
-
+  text(cmDistance +" cm", -width/2*75/100, -height/2*70/100);
   popMatrix();
 }
 

@@ -27,18 +27,19 @@ void setup()
  * 1 second stand by on start
  */
   #ifdef DEBUG
-    motor.attach(motorPin);
     analogWrite(bluePin, 255);
     delay(1000);
     analogWrite(bluePin, 0);
   #endif
 
+  //
   #ifdef DEBUG
     #define ROTATE_ANGLE 180
   #else
     #define ROTATE_ANGLE 360
   #endif
 
+  motor.attach(motorPin);
   pinMode(redPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
   pinMode(bluePin, OUTPUT);
@@ -49,27 +50,17 @@ void setup()
   pinMode(echoPin, INPUT);
      
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.begin(38400);
+  Serial.begin(9600);
 }
 
 void loop()
 {
   if(Serial.available() > 0)
-  {
     standByVal = Serial.read();
-  }
+
   for (int i = 0; i <= ROTATE_ANGLE; i++)
   {
-    motor.write(i);
-    distCalc();
-    ledRedOrGreen();
-    buzzOrNot(distanceCm);
-    #ifndef DEBUG
-      builtinLed();
-      standBy();
-    #endif
-    if (objectInRange())
-      Serial.write(distanceCm);
+    
   }
 
   for (int i = ROTATE_ANGLE; i >= 0; i--)
@@ -161,4 +152,20 @@ void builtinLed()
 inline boolean objectInRange()
 {
   return distanceCm < 320; // TODO Find Real Life Value for 320
+}
+
+void mainEvent()
+{
+  motor.write(i);
+    distCalc();
+    ledRedOrGreen();
+    builtinLed();
+    #ifndef DEBUG
+      buzzOrNot(distanceCm);
+    #endif
+    #ifndef NO_PHONE
+      standBy();
+    #endif
+    if (objectInRange())
+      Serial.write(distanceCm);
 }
