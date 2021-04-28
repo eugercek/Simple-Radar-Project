@@ -90,7 +90,7 @@ void ledRedOrGreen(void)
     rgbColor(255, 0, 0);
   else
     rgbColor(0, 255, 0);
-  delay(100);
+
 }
 
 void rgbColor(int red, int green, int blue)
