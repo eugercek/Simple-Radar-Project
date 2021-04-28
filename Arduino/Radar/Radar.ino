@@ -19,7 +19,7 @@
 Servo motor;
 int cmDistance;
 int rotateAngle = 0;
-char standByVal = '1'; // MIT App Inventor will send '0' for pause radar
+char standByVal = '1'; // MIT App Inventor will send '0' to pause radar
 
 void setup()
 {
