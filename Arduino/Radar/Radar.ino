@@ -139,8 +139,8 @@ void mainEvent()
   distCalc();
   ledRedOrGreen();
   builtinLed();
+  buzzOrNot(cmDistance);
   #ifndef DEBUG
-    buzzOrNot(cmDistance);
   #endif
   #ifndef NO_PHONE
     standBy();
