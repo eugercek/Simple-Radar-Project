@@ -59,23 +59,10 @@ void loop()
     standByVal = Serial.read();
 
   for (int i = 0; i <= ROTATE_ANGLE; i++)
-  {
-    
-  }
+    mainEvent();
 
   for (int i = ROTATE_ANGLE; i >= 0; i--)
-  {
-    motor.write(i);
-    distCalc();
-    ledRedOrGreen();
-    buzzOrNot(distanceCm);
-    #ifndef DEBUG
-      builtinLed();
-      standBy();
-    #endif
-    if (objectInRange())
-      Serial.write(distanceCm);
-  }
+    mainEvent();
 }
 
 
@@ -157,15 +144,15 @@ inline boolean objectInRange()
 void mainEvent()
 {
   motor.write(i);
-    distCalc();
-    ledRedOrGreen();
-    builtinLed();
-    #ifndef DEBUG
-      buzzOrNot(distanceCm);
-    #endif
-    #ifndef NO_PHONE
-      standBy();
-    #endif
-    if (objectInRange())
-      Serial.write(distanceCm);
+  distCalc();
+  ledRedOrGreen();
+  builtinLed();
+  #ifndef DEBUG
+    buzzOrNot(distanceCm);
+  #endif
+  #ifndef NO_PHONE
+    standBy();
+  #endif
+  if (objectInRange())
+    Serial.write(distanceCm);
 }
