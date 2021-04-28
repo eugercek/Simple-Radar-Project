@@ -29,7 +29,7 @@ void setup()
  */
   #ifdef DEBUG
     analogWrite(bluePin, 255);
-    delay(1000);
+    delay(100);
     analogWrite(bluePin, 0);
   #endif
 
