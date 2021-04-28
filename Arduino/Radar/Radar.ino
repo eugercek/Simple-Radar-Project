@@ -80,14 +80,7 @@ int distCalc()
   
   distanceCm = timeVal * soundConstant / 2;
   
-  #ifdef DEBUG
-    Serial.print("Distance: ");
-    Serial.println(distanceCm);
-  #endif
-  
   return distanceCm;
-
-  
 }
 
 void ledRedOrGreen(void)
