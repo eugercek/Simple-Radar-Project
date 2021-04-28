@@ -17,7 +17,7 @@
 #define soundConstant 0.034
 
 Servo motor;
-int distanceCm ;
+int cmDistance ;
 char standByVal = '1'; // MIT App Inventor will send '0' for pause radar
 
 void setup()
@@ -65,7 +65,6 @@ void loop()
     mainEvent();
 }
 
-
 int distCalc()
 {
   long timeVal;
@@ -77,9 +76,9 @@ int distCalc()
 
   timeVal = pulseIn(echoPin, HIGH);
   
-  distanceCm = timeVal * soundConstant / 2;
+  cmDistance = timeVal * soundConstant / 2;
   
-  return distanceCm;
+  return cmDistance;
 }
 
 void ledRedOrGreen(void)
@@ -98,12 +97,11 @@ void rgbColor(int red, int green, int blue)
   analogWrite(bluePin, blue);
 }
 
-void buzzOrNot(int distanceCm)
+void buzzOrNot(int cmDistance)
 {
    if (objectInRange())
     tone(buzzerPin, 220, 100); // TOOD find good tone
 }
-
 
 void standBy()
 {
@@ -129,7 +127,7 @@ void builtinLed()
 
 inline boolean objectInRange()
 {
-  return distanceCm < 320; // TODO Find Real Life Value for 320
+  return cmDistance < 320; // TODO Find Real Life Value for 320
 }
 
 void mainEvent()
@@ -139,11 +137,11 @@ void mainEvent()
   ledRedOrGreen();
   builtinLed();
   #ifndef DEBUG
-    buzzOrNot(distanceCm);
+    buzzOrNot(cmDistance);
   #endif
   #ifndef NO_PHONE
     standBy();
   #endif
   if (objectInRange())
-    Serial.write(distanceCm);
+    Serial.write(cmDistance);
 }

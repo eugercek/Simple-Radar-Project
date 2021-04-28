@@ -26,6 +26,7 @@ void setup()
   soundFile = new SoundFile(this, "radar_sound.mp3");
   soundFile.loop();
 
+  // These two variables are for supporting boh portrait and landscape mode
   smaller = displayWidth < displayHeight ? width : height;
   bigger =  displayWidth > displayHeight ? width : height;
 
@@ -44,7 +45,7 @@ void setup()
   Constant.RotateLineColor = color(30, 250, 60);
   Constant.InfoTextColor   = color(98, 245, 31);
 
-  Constant.LineLength      = Constant.RadiusList[3] * 0.533 ;
+  Constant.LineLength      = Constant.RadiusList[3] * 0.533;
 
   Constant.DistanceK       = 80;
   Constant.FollowerNumber  = 5;
@@ -54,9 +55,9 @@ void serialEvent(Serial myPort)
 { 
   cmDistance = myPort.read();
 }
+
 void draw() 
 {
-  int start = millis();
   fill(0);
   noStroke();
   rect(0, 0, width, height);

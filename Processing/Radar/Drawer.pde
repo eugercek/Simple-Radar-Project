@@ -10,9 +10,7 @@ class Drawer
     noFill();
   
     for (float R : Constant.RadiusList)
-    {
       circle(0, 0, R);
-    }
     popMatrix();
   }
   
@@ -65,10 +63,8 @@ class Drawer
     translate(width/2, height/2);
   
     for (int i = 30; i <= 360; i+=30)
-    {
       line(0, 0, -(lineVar)*cos(radians(i)), -(lineVar)*sin(radians(i)));
-    }
-  
+
     popMatrix();
   }   
   
@@ -82,7 +78,6 @@ class Drawer
     textSize(width*1.10/100);
     textAlign(LEFT);
     for (int i = 0; i < Constant.RadiusList.length; i++)
-    {
       text((i + 1) * Constant.DistanceK, Constant.RadiusList[i] / 2 + bigger * 0.00260, height*3/100); //bigger * 0.00260 is for simulating a five pixel addition on any resolution.
     }
   
