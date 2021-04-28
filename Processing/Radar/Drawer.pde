@@ -79,7 +79,6 @@ class Drawer
     textAlign(LEFT);
     for (int i = 0; i < Constant.RadiusList.length; i++)
       text((i + 1) * Constant.DistanceK, Constant.RadiusList[i] / 2 + bigger * 0.00260, height*3/100); //bigger * 0.00260 is for simulating a five pixel addition on any resolution.
-    }
   
     popMatrix();
   }
