@@ -14,7 +14,7 @@ void setup()
   
   String portName = Serial.list()[0];
   myPort = new Serial(this, "COM4", 9600); // Maybe COM4 in your setup
-
+  delay(1000); 
   myPort.bufferUntil('\n');// For packet structure look at send_packet() in Radar.ino
 }
 
