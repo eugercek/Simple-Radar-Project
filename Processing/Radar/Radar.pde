@@ -76,4 +76,8 @@ void draw()
   drawer.drawDegreeNumbers();
   drawer.drawDistanceNumbers();
   drawer.drawRotate();
+  
+  // Debug
+  println(rotateAngle + " " + cmDistance);
+  
 }
