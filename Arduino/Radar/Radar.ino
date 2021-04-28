@@ -12,16 +12,16 @@
 #define motorPin 3
 
 #define DEBUG
+#define NO_PHONE
  
 #define soundConstant 0.034
 
 Servo motor;
 int distanceCm ;
-int standByVal = '1'; //Standby '1' true anlamında Standbya '0' yollayınca false olacak ve break çalışacak '0' da telefondan yollanacak.
+char standByVal = '1'; // MIT App Inventor will send '0' for pause radar
 
 void setup()
 {
-  
 /*
  * If DEBUG Below macro will simulate
  * 1 second stand by on start
@@ -32,7 +32,7 @@ void setup()
     analogWrite(bluePin, 0);
   #endif
 
-  //
+  // For real world problems
   #ifdef DEBUG
     #define ROTATE_ANGLE 180
   #else
@@ -68,7 +68,6 @@ void loop()
 
 int distCalc()
 {
-
   long timeVal;
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -85,7 +84,6 @@ int distCalc()
 
 void ledRedOrGreen(void)
 {
- 
   if (objectInRange())
     rgbColor(255, 0, 0);
   else
