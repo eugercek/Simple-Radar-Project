@@ -7,7 +7,7 @@ String noObject;
 float pixelDistance;
 int cmDistance;
 
-int rotateAngle = 0;// TODO If error occurs change to float 
+float rotateAngle = 0;// TODO If error occurs change to float 
 
 int smaller;
 int bigger;
@@ -27,7 +27,7 @@ void setup()
   soundFile = new SoundFile(this, "radar_sound.mp3");
   soundFile.loop();
 
-  // These two variables are for supporting boh portrait and landscape mode
+  // These two variables are for supporting both portrait and landscape mode
   smaller = displayWidth < displayHeight ? width : height;
   bigger =  displayWidth > displayHeight ? width : height;
 

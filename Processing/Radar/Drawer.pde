@@ -17,7 +17,7 @@ class Drawer
   public void drawRedDot(float currentPos) 
   {
     pushMatrix();
-    float dotVar = (height*44.4/100);
+    float dotVar = Constant.LineLength;
   
     translate(width/2, height/2); 
     strokeWeight(1);
@@ -26,11 +26,12 @@ class Drawer
     fill(255,0,0);
   
     pixelDistance = cmDistance*22.5; //Converting real distance in centimeters to pixels.
+    float multiplier = pixelDistance / 7200; //To scale pixelDistance values between zero and one;
     //Limiting the distance to 40 cm
     if (cmDistance < 40)
     { 
-      float circleX = (pixelDistance*cos(radians(currentPos)) + dotVar*cos(radians(currentPos))) / 2;
-      float circleY = (-pixelDistance*sin(radians(currentPos)) - dotVar*sin(radians(currentPos))) / 2;
+      float circleX = dotVar * cos(radians(rotateAngle)) * multiplier;
+      float circleY = -dotVar * sin(radians(rotateAngle)) * multiplier;
       circle(circleX, circleY, 30);// 30 is a random value
     } 
     popMatrix();
