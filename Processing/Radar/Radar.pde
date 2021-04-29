@@ -25,6 +25,7 @@ void setup()
   
   String portName = Serial.list()[0];
   myPort = new Serial(this, "COM4", 9600); // Maybe COM4 in your setup
+  myPort.bufferUntil('\n');// For packet structure look at send_packet() in Radar.ino
  
   soundFile = new SoundFile(this, "radar_sound.mp3");
   soundFile.loop();
@@ -52,7 +53,6 @@ void setup()
 
   Constant.DistanceK       = 80;
   Constant.FollowerNumber  = 5;
-  myPort.bufferUntil('\n');// For packet structure look at send_packet() in Radar.ino
 }
 
 void serialEvent(Serial myPort)
@@ -61,10 +61,10 @@ void serialEvent(Serial myPort)
   println(packet);
   packet = packet.substring(0, packet.length() - 1); // Removes \n form end
   
-  int  delimiterIndex = packet.indexOf(',');
+  int delimiterIndex = packet.indexOf(",");
   
-  rotateAngle = Integer.parseInt(packet.substring(0, delimiterIndex -1));// TODO Could add exception handling for non-number input
-  cmDistance  = Integer.parseInt(packet.substring(delimiterIndex + 1, packet.length())); // \n Is already stripped
+  // rotateAngle = Integer.parseInt(packet.substring(0, delimiterIndex));// TODO Could add exception handling for non-number input
+  // cmDistance  = Integer.parseInt(packet.substring(delimiterIndex + 1, packet.length())); // \n Is already stripped
 }
 
 void draw() 
@@ -79,5 +79,4 @@ void draw()
   drawer.drawDegreeNumbers();
   drawer.drawDistanceNumbers();
   drawer.drawRotate();
-  
 }
