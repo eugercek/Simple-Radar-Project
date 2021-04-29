@@ -58,13 +58,14 @@ void setup()
 void serialEvent(Serial myPort)
 { 
   String packet = myPort.readStringUntil('\n');
-  println(packet);
   packet = packet.substring(0, packet.length() - 1); // Removes \n form end
   
   int delimiterIndex = packet.indexOf(",");
   
-  rotateAngle = Integer.parseInt(packet.substring(0, delimiterIndex));// TODO Could add exception handling for non-number input
-  cmDistance  = Integer.parseInt(packet.substring(delimiterIndex + 1, packet.length())); // \n Is already stripped
+  // rotateAngle = Integer.parseInt(packet.substring(0, delimiterIndex));// TODO Could add exception handling for non-number input
+  // cmDistance  = Integer.parseInt(packet.substring(delimiterIndex + 1, packet.length() - 1)); // \n Is already stripped
+  println(packet.substring(0, delimiterIndex));
+  println(packet.substring(delimiterIndex + 1, packet.length() - 1));
 }
 
 void draw() 
