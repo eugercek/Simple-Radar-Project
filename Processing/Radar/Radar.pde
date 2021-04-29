@@ -67,7 +67,6 @@ void draw()
   rect(0, 0, width, height);
 
   String packet = myPort.readStringUntil('\n');
-  println("(serialEvent)Got", packet);
   packet = packet.substring(0, packet.length() - 1); // Remove \n
 
   int delimiterIndex = packet.indexOf(",");
