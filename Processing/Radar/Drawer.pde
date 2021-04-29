@@ -29,8 +29,8 @@ class Drawer
     float multiplier = pixelDistance / 7200; //To scale pixelDistance values between zero and one;
     //Limiting the distance to 40 cm
  
-    float circleX = dotVar * cos(radians(rotateAngle)) * multiplier;
-    float circleY = -dotVar * sin(radians(rotateAngle)) * multiplier;
+    float circleX = dotVar * cos(radians(currentPos)) * multiplier;
+    float circleY = -dotVar * sin(radians(currentPos)) * multiplier;
     circle(circleX, circleY, 30);// 30 is a random value
 
     popMatrix();
