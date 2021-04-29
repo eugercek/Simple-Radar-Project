@@ -59,12 +59,17 @@ void setup()
 void serialEvent(Serial myPort)
 { 
   String packet = myPort.readStringUntil('\n');
+  println(1);
   packet = packet.substring(0, packet.length() - 1); // Remove \n
+  println(2);
 
   int delimiterIndex = packet.indexOf(",");
+  println(3);
 
   rotateAngle = int(packet.substring(0,delimiterIndex));
+  println(4);
   cmDistance  = int(packet.substring(delimiterIndex + 1, packet.length()));
+  println(5);
 }
 
 void draw() 
