@@ -56,8 +56,16 @@ void setup()
   Constant.MaxRange = 320;
 }
 
-void serialEvent(Serial myPort)
-{ 
+// void serialEvent(Serial myPort)
+// {
+// }
+
+void draw() 
+{
+  fill(0);
+  noStroke();
+  rect(0, 0, width, height);
+
   String packet = myPort.readStringUntil('\n');
   println("(serialEvent)Got", packet);
   packet = packet.substring(0, packet.length() - 1); // Remove \n
@@ -66,13 +74,6 @@ void serialEvent(Serial myPort)
 
   rotateAngle = int(packet.substring(0,delimiterIndex));
   cmDistance  = int(packet.substring(delimiterIndex + 1, packet.length()));
-}
-
-void draw() 
-{
-  fill(0);
-  noStroke();
-  rect(0, 0, width, height);
   
   drawer.drawCircles();
   drawer.drawLines(); 
