@@ -14,4 +14,5 @@ class Constant
 
   public int   smaller;
   public int   FollowerNumber;
+  public int   MaxRange;
 }

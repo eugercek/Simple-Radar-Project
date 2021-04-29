@@ -53,17 +53,18 @@ void setup()
 
   Constant.DistanceK       = 80;
   Constant.FollowerNumber  = 5;
+  Constant.MaxRange = 320;
 }
 
 void serialEvent(Serial myPort)
 { 
   String packet = myPort.readStringUntil('\n');
-  packet = packet.substring(0, packet.length() - 1); // Removes \n form end
-  
+  packet = packet.substring(0, packet.length() - 1); // Remove \n
+
   int delimiterIndex = packet.indexOf(",");
-  
-  rotateAngle = Integer.parseInt(packet.substring(0, delimiterIndex));// TODO Could add exception handling for non-number input
-  cmDistance  = Integer.parseInt(packet.substring(delimiterIndex + 1, packet.length() - 1)); // \n Is already stripped
+
+  rotateAngle = int(packet.substring(0,delimiterIndex));
+  cmDistance  = int(packet.substring(delimiterIndex + 1, packet.length()));
 }
 
 void draw() 

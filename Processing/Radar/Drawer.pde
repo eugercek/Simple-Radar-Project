@@ -25,33 +25,27 @@ class Drawer
     stroke(Constant.RedLineColor); //Red
     fill(255,0,0);
   
-    pixelDistance = cmDistance*22.5; //Converting real distance in centimeters to pixels.
-    float multiplier = pixelDistance / 7200; //To scale pixelDistance values between zero and one;
-    //Limiting the distance to 40 cm
- 
-    float circleX = dotVar * cos(radians(rotateAngle)) * multiplier;
-    float circleY = -dotVar * sin(radians(rotateAngle)) * multiplier;
-    circle(circleX, circleY, 30);// 30 is a random value
-
     popMatrix();
   } 
   
   public void drawInfoText() 
   { 
     pushMatrix();
-    noObject = cmDistance > 40 ? "Out of Range" : "In Range";
+    noObject = cmDistance > Constant.MaxRange ? "Out of Range" : "In Range";
     fill(Constant.InfoTextColor);
-  
+
     textAlign(LEFT);
     textSize(bigger*2.08/100);
     textLeading(3);
   
     translate(width/2, height/2);
     text("Object: " + noObject, -width/2*95/100, -height/2*90/100);
+
     text("Angle: " + nfs(rotateAngle, 3, 2) +" °", -width/2*95/100, -height/2*80/100);
     text("Distance:", -width/2*95/100, -height/2*70/100);
   
-    text(cmDistance +" cm", -width/2*75/100, -height/2*70/100);
+    int printedDistance = cmDistance > Constant.MaxRange ? 0 : cmDistance;
+    text(printedDistance +" cm", -width/2*75/100, -height/2*70/100);
     popMatrix();
   }
   
@@ -130,7 +124,7 @@ class Drawer
     {
       followerControl = i;
       strokeWeight(2);
-      if(cmDistance < 320)
+      if(cmDistance < Constant.MaxRange)
         drawRedDot(rotateAngle);
       line(0, 0, lineVar * cos(radians(rotateAngle - followerControl/5)), -lineVar * sin(radians(rotateAngle - followerControl/5)));
       stroke(Constant.LineColor, alpha - i);
