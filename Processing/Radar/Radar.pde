@@ -24,7 +24,7 @@ void setup()
   smooth(16);
   
   String portName = Serial.list()[0];
-  myPort = new Serial(this, "COM4", 9600); // Maybe COM4 in your setup
+  myPort = new Serial(this, portName, 9600); // TODO Maybe COM4 in your setup
   myPort.bufferUntil('\n');// For packet structure look at send_packet() in Radar.ino
  
   soundFile = new SoundFile(this, "radar_sound.mp3");
@@ -62,10 +62,8 @@ void serialEvent(Serial myPort)
   
   int delimiterIndex = packet.indexOf(",");
   
-  // rotateAngle = Integer.parseInt(packet.substring(0, delimiterIndex));// TODO Could add exception handling for non-number input
-  // cmDistance  = Integer.parseInt(packet.substring(delimiterIndex + 1, packet.length() - 1)); // \n Is already stripped
-  println(packet.substring(0, delimiterIndex));
-  println(packet.substring(delimiterIndex + 1, packet.length() - 1));
+  rotateAngle = Integer.parseInt(packet.substring(0, delimiterIndex));// TODO Could add exception handling for non-number input
+  cmDistance  = Integer.parseInt(packet.substring(delimiterIndex + 1, packet.length() - 1)); // \n Is already stripped
 }
 
 void draw() 
