@@ -63,8 +63,8 @@ void serialEvent(Serial myPort)
   
   int delimiterIndex = packet.indexOf(",");
   
-  // rotateAngle = Integer.parseInt(packet.substring(0, delimiterIndex));// TODO Could add exception handling for non-number input
-  // cmDistance  = Integer.parseInt(packet.substring(delimiterIndex + 1, packet.length())); // \n Is already stripped
+  rotateAngle = Integer.parseInt(packet.substring(0, delimiterIndex));// TODO Could add exception handling for non-number input
+  cmDistance  = Integer.parseInt(packet.substring(delimiterIndex + 1, packet.length())); // \n Is already stripped
 }
 
 void draw() 
