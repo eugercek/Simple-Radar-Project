@@ -3,8 +3,6 @@ import processing.serial.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
-Serial myPort;
-
 String noObject;
 float pixelDistance;
 int cmDistance;
@@ -17,18 +15,15 @@ int bigger;
 Constant Constant = new Constant();
 SoundFile soundFile;
 Drawer drawer = new Drawer();
+Fake fake = new Fake();
 
 void setup() 
 {
   fullScreen();
   smooth(16);
   
-  String portName = Serial.list()[0];
-  myPort = new Serial(this, portName, 9600); // TODO Maybe COM4 in your setup
-  myPort.bufferUntil('\n');// For packet structure look at send_packet() in Radar.ino
- 
   soundFile = new SoundFile(this, "radar_sound.mp3");
-  soundFile.loop();
+  // soundFile.loop(); // No need for sound in debugging
 
   // These two variables are for supporting both portrait and landscape mode
   smaller = displayWidth < displayHeight ? width : height;
@@ -55,23 +50,18 @@ void setup()
   Constant.FollowerNumber  = 5;
 }
 
-void serialEvent(Serial myPort)
-{ 
-  String packet = myPort.readStringUntil('\n');
-  packet = packet.substring(0, packet.length() - 1); // Removes \n form end
-  
-  int delimiterIndex = packet.indexOf(",");
-  
-  rotateAngle = Integer.parseInt(packet.substring(0, delimiterIndex));// TODO Could add exception handling for non-number input
-  cmDistance  = Integer.parseInt(packet.substring(delimiterIndex + 1, packet.length() - 1)); // \n Is already stripped
-}
-
 void draw() 
 {
   fill(0);
   noStroke();
   rect(0, 0, width, height);
   
+  // Only for this Branch
+  fake.serialEvent();
+  cmDistance = fake.getCmDistance();
+  rotateAngle = fake.getRotateAngle();
+  // Only for this branch End
+  println("(main)Angle: ", rotateAngle, "    ", "Distance: ", cmDistance, "\n");
   drawer.drawCircles();
   drawer.drawLines(); 
   drawer.drawInfoText();

@@ -19,20 +19,13 @@ class Drawer
     pushMatrix();
     float dotVar = Constant.LineLength;
   
-    translate(width/2, height/2); 
     strokeWeight(1);
   
     stroke(Constant.RedLineColor); //Red
     fill(255,0,0);
-  
-    pixelDistance = cmDistance*22.5; //Converting real distance in centimeters to pixels.
-    float multiplier = pixelDistance / 7200; //To scale pixelDistance values between zero and one;
-    //Limiting the distance to 40 cm
+   
  
-    float circleX = dotVar * cos(radians(rotateAngle)) * multiplier;
-    float circleY = -dotVar * sin(radians(rotateAngle)) * multiplier;
-    circle(circleX, circleY, 30);// 30 is a random value
-
+    
     popMatrix();
   } 
   
@@ -130,6 +123,7 @@ class Drawer
     {
       followerControl = i;
       strokeWeight(2);
+      
       if(cmDistance < 320)
         drawRedDot(rotateAngle);
       line(0, 0, lineVar * cos(radians(rotateAngle - followerControl/5)), -lineVar * sin(radians(rotateAngle - followerControl/5)));
