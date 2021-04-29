@@ -90,6 +90,7 @@ void ledRedOrGreen(void)
     rgbColor(255, 0, 0);
   else
     rgbColor(0, 255, 0);
+     delay(100);
 
 }
 
@@ -136,7 +137,7 @@ inline boolean objectInRange()
 void mainEvent()
 {
   motor.write(rotateAngle);
-  delay(100); // TODO Find more consisten value 
+  delay(100); // TODO Find more consistent value 
   distCalc();
   ledRedOrGreen();
   builtinLed();

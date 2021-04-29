@@ -78,6 +78,4 @@ void draw()
   drawer.drawDistanceNumbers();
   drawer.drawRotate();
   
- 
-  
 }

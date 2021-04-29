@@ -32,6 +32,5 @@ void draw()
 {
   fill(0);
   noStroke();
-  String log =String.valueOf(rotateAngle) + "\t" + String.valueOf(rotateAngle);
-  text(log, width/2, height/2);
+  delay(100);
  }
