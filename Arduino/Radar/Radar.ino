@@ -166,7 +166,7 @@ void mainEvent()
 
 void send_packet()// TODO Maybe encapsulate with a struct
 {
-  Serial.print(String(rotateAngle));
-  Serial.print(',');
-  Serial.println(String(cmDistance));// println adds \n for indicating one packet has been sent
+  Serial.print(rotateAngle);
+  Serial.print(",");
+  Serial.println(Distance);// println adds \n for indicating one packet has been sent
 }
