@@ -27,6 +27,6 @@ class Fake{
     return packet;
   }
   
-  private void tick(){rotateAngle++;}
+  private void tick(){rotateAngle = (rotateAngle + 1)%360;}
   
 }

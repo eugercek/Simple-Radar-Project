@@ -48,6 +48,8 @@ void setup()
 
   Constant.DistanceK       = 80;
   Constant.FollowerNumber  = 5;
+  
+  Constant.MaxRange = 320;
 }
 
 void draw() 

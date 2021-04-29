@@ -23,16 +23,14 @@ class Drawer
   
     stroke(Constant.RedLineColor); //Red
     fill(255,0,0);
-   
- 
-    
+  
     popMatrix();
   } 
   
   public void drawInfoText() 
   { 
     pushMatrix();
-    noObject = cmDistance > 40 ? "Out of Range" : "In Range";
+    noObject = cmDistance > Constant.MaxRange ? "Out of Range" : "In Range";
     fill(Constant.InfoTextColor);
   
     textAlign(LEFT);
@@ -43,8 +41,9 @@ class Drawer
     text("Object: " + noObject, -width/2*95/100, -height/2*90/100);
     text("Angle: " + nfs(rotateAngle, 3, 2) +" °", -width/2*95/100, -height/2*80/100);
     text("Distance:", -width/2*95/100, -height/2*70/100);
-  
-    text(cmDistance +" cm", -width/2*75/100, -height/2*70/100);
+    
+    int printedDistance = cmDistance > Constant.MaxRange ? 0 : cmDistance;
+    text(printedDistance +" cm", -width/2*75/100, -height/2*70/100);
     popMatrix();
   }
   
@@ -124,7 +123,7 @@ class Drawer
       followerControl = i;
       strokeWeight(2);
       
-      if(cmDistance < 320)
+      if(cmDistance < Constant.MaxRange)
         drawRedDot(rotateAngle);
       line(0, 0, lineVar * cos(radians(rotateAngle - followerControl/5)), -lineVar * sin(radians(rotateAngle - followerControl/5)));
       stroke(Constant.LineColor, alpha - i);
