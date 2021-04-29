@@ -168,5 +168,5 @@ void send_packet()// TODO Maybe encapsulate with a struct
 {
   Serial.print(rotateAngle);
   Serial.print(",");
-  Serial.println(Distance);// println adds \n for indicating one packet has been sent
+  Serial.println(cmDistance);// println adds \n for indicating one packet has been sent
 }
